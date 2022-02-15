@@ -1,0 +1,17 @@
+B:\00 - projects\MonBazouCheat\MonBazou_ModManager_V2\bin\Debug\MonBazou_ModManager_V2.exe.config
+B:\00 - projects\MonBazouCheat\MonBazou_ModManager_V2\bin\Debug\MonBazou_ModManager_V2.exe
+B:\00 - projects\MonBazouCheat\MonBazou_ModManager_V2\bin\Debug\MonBazou_ModManager_V2.pdb
+B:\00 - projects\MonBazouCheat\MonBazou_ModManager_V2\obj\Debug\MonBazou_ModManager_V2.csproj.AssemblyReference.cache
+B:\00 - projects\MonBazouCheat\MonBazou_ModManager_V2\obj\Debug\MonBazou_ModManager_V2.csproj.SuggestedBindingRedirects.cache
+B:\00 - projects\MonBazouCheat\MonBazou_ModManager_V2\obj\Debug\MonBazou_ModManager_V2.Form1.resources
+B:\00 - projects\MonBazouCheat\MonBazou_ModManager_V2\obj\Debug\MonBazou_ModManager_V2.Properties.Resources.resources
+B:\00 - projects\MonBazouCheat\MonBazou_ModManager_V2\obj\Debug\MonBazou_ModManager_V2.csproj.GenerateResource.cache
+B:\00 - projects\MonBazouCheat\MonBazou_ModManager_V2\obj\Debug\MonBazou_ModManager_V2.csproj.CoreCompileInputs.cache
+B:\00 - projects\MonBazouCheat\MonBazou_ModManager_V2\obj\Debug\MonBazou_ModManager_V2.exe
+B:\00 - projects\MonBazouCheat\MonBazou_ModManager_V2\obj\Debug\MonBazou_ModManager_V2.pdb
+B:\00 - projects\MonBazouCheat\MonBazou_ModManager_V2\bin\Debug\Newtonsoft.Json.dll
+B:\00 - projects\MonBazouCheat\MonBazou_ModManager_V2\bin\Debug\Newtonsoft.Json.xml
+B:\00 - projects\MonBazouCheat\MonBazou_ModManager_V2\obj\Debug\MonBazou_ModManager_V2.csproj.CopyComplete
+B:\00 - projects\MonBazouCheat\MonBazou_ModManager_V2\bin\Debug\AutoUpdater.NET.dll
+B:\00 - projects\MonBazouCheat\MonBazou_ModManager_V2\bin\Debug\AutoUpdater.NET.pdb
+B:\00 - projects\MonBazouCheat\MonBazou_ModManager_V2\bin\Debug\AutoUpdater.NET.xml
