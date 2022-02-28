@@ -18,7 +18,7 @@ namespace MonBazou_ModManager_V2
         private const string changelogUrl = "https://monbazou.level2studios.co.uk/mods/changelog.txt";
         private const string modsUrl = "https://monbazou.level2studios.co.uk/mods/modDB.txt";
         private const string bepinexUrl = "https://monbazou.level2studios.co.uk/mods/BepInEx_x64_5.4.19.0.zip";
-        private const string version = "1.2.7";
+        private const string version = "1.2.9";
         private bool steamVersion;
         private string InstallLoc = "";
         private dynamic mod;
@@ -314,7 +314,7 @@ namespace MonBazou_ModManager_V2
                     if (mod[modId].isZip.ToString() == "true")
                     {
                         File.Delete(InstallLoc + @"\BepInEx\plugins\" + mod[modId].dllname.ToString());
-                        Directory.Delete(InstallLoc + @"\BepInEx\plugins\" + mod[modId].dllname.ToString(), true);
+                        Directory.Delete(InstallLoc + @"\BepInEx\plugins\" + mod[modId].name.ToString(), true);
                         if (DownloadFile(mod[modId].downloadurl.ToString(), InstallLoc + @"\BepInEx\plugins\" + mod[modId].zipname.ToString(), "Anything"))
                         {
                             ZipFile.ExtractToDirectory(InstallLoc + @"\BepInEx\plugins\" + mod[modId].zipname, InstallLoc + @"\BepInEx\plugins\");
@@ -433,6 +433,10 @@ namespace MonBazou_ModManager_V2
                             {
                                 if (DownloadFile(mod[listView1.SelectedIndices[0]].downloadurl.ToString(), InstallLoc + @"\BepInEx\plugins\" + mod[listView1.SelectedIndices[0]].zipname.ToString(), "Anything"))
                                 {
+                                   if(Directory.Exists(InstallLoc + @"\BepInEx\plugins\" + mod[listView1.SelectedIndices[0]].name.ToString()))
+                                    {
+                                        Directory.Delete(InstallLoc + @"\BepInEx\plugins\" + mod[listView1.SelectedIndices[0]].name.ToString(), true);
+                                    }
                                     ZipFile.ExtractToDirectory(InstallLoc + @"\BepInEx\plugins\" + mod[listView1.SelectedIndices[0]].zipname, InstallLoc + @"\BepInEx\plugins\");
                                     File.Delete(InstallLoc + @"\BepInEx\plugins\" + mod[listView1.SelectedIndices[0]].zipname);
                                     MessageBox.Show("You can start the game now!", "Mon Bazou - Mod Manager", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -450,7 +454,7 @@ namespace MonBazou_ModManager_V2
                         MessageBox.Show("BepInEx isn't installed \nInstalling it now...", "Mon Bazou - Mod Manager", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         try
                         {
-                            if(Directory.Exists(InstallLoc + @"\BepInEx")){Directory.Delete(InstallLoc + @"\BepInEx");}
+                            if(Directory.Exists(InstallLoc + @"\BepInEx")){Directory.Delete(InstallLoc + @"\BepInEx", true);}
                             if(File.Exists(InstallLoc + @"\winhttp.dll")){File.Delete(InstallLoc + @"\winhttp.dll");}
                             if(File.Exists(InstallLoc + @"\changelog.txt")){File.Delete(InstallLoc + @"\changelog.txt");}
                             if(File.Exists(InstallLoc + @"\doorstop_config.ini")){File.Delete(InstallLoc + @"\doorstop_config.ini");}
