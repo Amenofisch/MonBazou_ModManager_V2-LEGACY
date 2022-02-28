@@ -15,27 +15,13 @@ namespace MonBazou_ModManager_V2
 {
     public partial class Form1 : Form
     {
-        private const string changelogBackupUrl = "https://raw.githubusercontent.com/Amenofisch/MonBazouModRepo/main/changelog.txt";
-        private const string changelogUrl = "https://pastebin.com/raw/JGDXLKCp";
-        private const string modsBackupUrl = "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0FtZW5vZmlzY2gvTW9uQmF6b3VNb2RSZXBvL21haW4vbW9kREIudHh0";
-        private const string modsUrl = "aHR0cHM6Ly9wYXN0ZWJpbi5jb20vcmF3LzdlMzlMYnFV";
-        private const string bepinexUrl = "https://raw.githubusercontent.com/Amenofisch/MonBazouModRepo/main/BepInEx_x64_5.4.19.0.zip";
-        private const string version = "1.2.6";
+        private const string changelogUrl = "https://monbazou.level2studios.co.uk/mods/changelog.txt";
+        private const string modsUrl = "https://monbazou.level2studios.co.uk/mods/modDB.txt";
+        private const string bepinexUrl = "https://monbazou.level2studios.co.uk/mods/BepInEx_x64_5.4.19.0.zip";
+        private const string version = "1.2.7";
         private bool steamVersion;
         private string InstallLoc = "";
         private dynamic mod;
-
-        public static string Base64Decode(string base64EncodedData)
-        {
-            var base64EncodedBytes = System.Convert.FromBase64String(base64EncodedData);
-            return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
-        }
-
-        public static string Base64Encode(string plainText)
-        {
-            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
-            return System.Convert.ToBase64String(plainTextBytes);
-        }
 
         public static bool DownloadFile(string url, string path, string agent)
         {
@@ -138,10 +124,6 @@ namespace MonBazou_ModManager_V2
                             File.WriteAllText("dir.txt", createText);
                             return fbd.SelectedPath.ToString();
                         }
-                        else
-                        {
-                            return "";
-                        }
                     }
                 }
                 return "";
@@ -158,30 +140,14 @@ namespace MonBazou_ModManager_V2
                     ServicePointManager.Expect100Continue = true;
                     ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12 | SecurityProtocolType.Ssl3;
                     listView1.Items.Clear();
-                    try
-                    {
-                        var changelog = client.DownloadString(changelogUrl);
-                        textBox1.Text = changelog;
-                    }
-                    catch (Exception ex)
-                    {
-                        Error(ex, "CHANGELOG-MAIN/FAIL", false, true);
-                        try
-                        {
-                            var changelog = client.DownloadString(changelogBackupUrl);
-                            textBox1.Text = changelog;
-                        }
-                        catch (Exception ex2)
-                        {
-                            Error(ex2, "CHANGELOG-BACKUP/FAIL", false, true);
-                        }
-                    }
+                    var changelog = client.DownloadString(changelogUrl);
+                    textBox1.Text = changelog;
                 }
             }
             catch (Exception ex)
             {
                 textBox1.Text = "Error downloading Changelog";
-                Error(ex, "CHANGELOG-FULL/FAIL", false, true);
+                Error(ex, "CHANGELOG/FAIL", false, true);
             }
         }
 
@@ -217,7 +183,7 @@ namespace MonBazou_ModManager_V2
                     }
                     else
                     {
-                        steamLabel.Text = "Cracked Version / Couldn't auto-find game location";
+                        steamLabel.Text = "Cracked Version / Couldn't find game location";
                         steamLabel.BackColor = Color.OrangeRed;
                     }
                 }
@@ -268,23 +234,12 @@ namespace MonBazou_ModManager_V2
                 listView1.Items.Clear();
                 try
                 {
-                    modsDownload = client.DownloadString(Base64Decode(modsUrl));
+                    modsDownload = client.DownloadString(modsUrl);
                     mod = JsonConvert.DeserializeObject(modsDownload);
                 }
                 catch (Exception ex)
                 {
-                    Error(ex, "MAIN-MOD-DB/FAIL", false, true);
-                    try
-                    {
-                        modsDownload = client.DownloadString(Base64Decode(modsBackupUrl));
-                        mod = JsonConvert.DeserializeObject(modsDownload);
-                    }
-                    catch (Exception ex2)
-                    {
-                        Error(ex2, "BACKUP-MOD-DB/FAIL", true, true);
-                        Application.Exit();
-                        Application.ExitThread();
-                    }
+                    Error(ex, "MOD-DB/FAIL", false, true);
                 }
             }
             for (int i = 0; i < mod.Count; i++)
@@ -397,7 +352,7 @@ namespace MonBazou_ModManager_V2
             AutoUpdater.InstalledVersion = new Version(version); // Set Application Version Here
             AutoUpdater.UpdateMode = Mode.Forced;
             AutoUpdater.Mandatory = true;
-            AutoUpdater.Start("https://pastebin.com/raw/NfBLWbSa");
+            AutoUpdater.Start("https://monbazou.level2studios.co.uk/mods/AutoUpdater.xaml");
             LocSetup();
             SetupChangelog();
             UpdateModList();
@@ -569,7 +524,7 @@ namespace MonBazou_ModManager_V2
 
         private void button1_Click(object sender, EventArgs e)
         {
-            AutoUpdater.Start("https://pastebin.com/raw/NfBLWbSa");
+            AutoUpdater.Start("https://monbazou.level2studios.co.uk/mods/AutoUpdater.xaml");
         }
 
         private void forceUpdateButton_Click(object sender, EventArgs e)
