@@ -20,8 +20,7 @@ namespace MonBazou_ModManager_V2
         private const string modsBackupUrl = "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0FtZW5vZmlzY2gvTW9uQmF6b3VNb2RSZXBvL21haW4vbW9kREIudHh0";
         private const string modsUrl = "aHR0cHM6Ly9wYXN0ZWJpbi5jb20vcmF3LzdlMzlMYnFV";
         private const string bepinexUrl = "https://raw.githubusercontent.com/Amenofisch/MonBazouModRepo/main/BepInEx_x64_5.4.19.0.zip";
-        private const string versionUrl = "https://pastebin.com/raw/EEjanzKa";
-        private const string version = "1.2.5";
+        private const string version = "1.2.6";
         private bool steamVersion;
         private string InstallLoc = "";
         private dynamic mod;
@@ -95,7 +94,7 @@ namespace MonBazou_ModManager_V2
                     }
                     catch (Exception ex)
                     {
-                        Error(ex, "INSTALLOCFAIL-SUBKEY/POSSPIR", important: true, needsAttention: false);
+                        Error(ex, "INSTALLOCFAIL-SUBKEY/POSSPIR", true, false);
                         return "";
                     }
                     object value = registryKey2.GetValue("InstallLocation");
@@ -105,7 +104,7 @@ namespace MonBazou_ModManager_V2
                         steamVersion = true;
                         return value.ToString();
                     }
-                    Error(new Exception("InstallLocation was Empty. Please make sure to select the right folder!"), "INSTALLOCFAIL", important: true, needsAttention: false);
+                    Error(new Exception("InstallLocation was Empty. Please make sure to select the right folder!"), "INSTALLOCFAIL", true, false);
                     return "";
                 }
             }
@@ -218,7 +217,7 @@ namespace MonBazou_ModManager_V2
                     }
                     else
                     {
-                        steamLabel.Text = "Cracked Version";
+                        steamLabel.Text = "Cracked Version / Couldn't auto-find game location";
                         steamLabel.BackColor = Color.OrangeRed;
                     }
                 }
@@ -360,6 +359,7 @@ namespace MonBazou_ModManager_V2
                     if (mod[modId].isZip.ToString() == "true")
                     {
                         File.Delete(InstallLoc + @"\BepInEx\plugins\" + mod[modId].dllname.ToString());
+                        Directory.Delete(InstallLoc + @"\BepInEx\plugins\" + mod[modId].dllname.ToString(), true);
                         if (DownloadFile(mod[modId].downloadurl.ToString(), InstallLoc + @"\BepInEx\plugins\" + mod[modId].zipname.ToString(), "Anything"))
                         {
                             ZipFile.ExtractToDirectory(InstallLoc + @"\BepInEx\plugins\" + mod[modId].zipname, InstallLoc + @"\BepInEx\plugins\");
@@ -556,7 +556,7 @@ namespace MonBazou_ModManager_V2
                 File.Delete(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\MonBazouModManager\" + mod[listView1.SelectedIndices[0]].name.ToString() + ".txt");
                 if (mod[listView1.SelectedIndices[0]].isZip.ToString() == "true")
                 {
-                    Directory.Delete(InstallLoc + @"\BepInEx\plugins\" + mod[listView1.SelectedIndices[0]].name.ToString());
+                    Directory.Delete(InstallLoc + @"\BepInEx\plugins\" + mod[listView1.SelectedIndices[0]].name.ToString(), true);
                 }
                 MessageBox.Show("You can start the game now!", "Mon Bazou - Mod Manager", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
